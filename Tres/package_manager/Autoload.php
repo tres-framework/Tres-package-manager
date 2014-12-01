@@ -12,6 +12,13 @@ namespace Tres\package_manager {
         protected $_rootURI = '';
         
         /**
+         * The manifest data.
+         * 
+         * @var array
+         */
+        protected $_manifest = [];
+        
+        /**
          * The list of namespaces.
          * 
          * @var array
@@ -23,10 +30,15 @@ namespace Tres\package_manager {
          * 
          * @param string $rootURI The root URI of all files.
          */
-        public function __construct($rootURI){
+        public function __construct($rootURI, array $manifest){
             $this->_rootURI = rtrim($rootURI, '/');
+            $this->_manifest = $manifest;
             
             spl_autoload_register([$this, '_loadClass']);
+            
+            $this->_registerNamespaces();
+            $this->_registerAliases();
+            $this->_registerFiles();
         }
         
         /**
@@ -38,6 +50,19 @@ namespace Tres\package_manager {
         public function addNamespace($namespacePrefix, $dir){
             $namespacePrefix = trim($namespacePrefix, '\\').'\\';
             $this->_namespacePrefixes[$namespacePrefix] = $dir;
+        }
+        
+        /**
+         * Gives a certain class an alias.
+         * 
+         * @param string $alias    The alias name for the class.
+         * @param string $original The original class.
+         * @param bool   $autoload Whether to autoload if the original class is not found.
+         * 
+         * @return bool  Returns true on success or false on failure.
+         */
+        public function setAlias($alias, $original, $autoload = true){
+            return class_alias($original, $alias, $autoload);
         }
         
         /**
@@ -99,6 +124,33 @@ namespace Tres\package_manager {
             $file = str_replace('\\', '/', $file).'.php';
             
             return $this->loadFile($file);
+        }
+        
+        /**
+         * Registers the namespaces.
+         */
+        protected function _registerNamespaces(){
+            foreach($this->_manifest['namespaces'] as $namespace => $dir){
+                $this->addNamespace($namespace, $dir);
+            }
+        }
+        
+        /**
+         * Registers the aliases.
+         */
+        protected function _registerAliases(){
+            foreach($this->_manifest['aliases'] as $alias => $original){
+                $this->setAlias($alias, $original);
+            }
+        }
+        
+        /**
+         * Registers the files.
+         */
+        protected function _registerFiles(){
+            foreach($this->_manifest['files'] as $file){
+                $this->loadFile($file);
+            }
         }
         
     }
