@@ -4,7 +4,7 @@ use Tres\package_manager\Autoload;
 
 define('ROOT', dirname(__DIR__));
 
-require_once(ROOT.'/Tres/package_manager/Autoload.php');
+require_once(ROOT.'/src/Tres/package_manager/Autoload.php');
 
 $manifest = require('manifest.php');
 $autoload = new Autoload(ROOT.'/examples', $manifest);
