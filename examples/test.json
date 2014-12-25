@@ -1,0 +1,29 @@
+{
+    "name": "Test package",
+    "version": "1.2.6",
+    "website": "http://example.com",
+    "documentation": "",
+    "description_short": "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+    
+    "description_long": [
+        "This is a test.\n\n",
+        "This is a test 2.\n\n",
+        "This is a test 3.\n\n",
+        "This is a test 4.\n\n",
+        "This is a test 5. ",
+        "This is a test 5.2. ",
+        "This is a test 5.3.\n\n",
+        "This is a test 6.\n\n"
+    ],
+    
+    "contributors": [{
+        "name": "Ped Zed",
+        "nickname": "pedzed",
+        "email": "ped@tresframework.com",
+        "github": "https://github.com/pedzed/"
+    }, {
+        "name": "John Doe",
+        "nickname": "jdoe",
+        "email": "j.doe@example.com"
+    }]
+}

@@ -29,7 +29,7 @@ return [
     */
     'namespaces' => [
         'app\controllers' => 'app/controllers',
-        'Tres' => 'vendor/Tres',
+        'Tres' => '../src/Tres',
         'John_Doe' => '/vendor/John_Doe',
     ],
     
