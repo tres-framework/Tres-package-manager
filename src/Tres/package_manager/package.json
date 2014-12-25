@@ -11,6 +11,10 @@
         "the framework.\n\n"
     ],
     
+    "dependencies": {
+        "php": ">= 5.4"
+    },
+    
     "contributors": [{
         "name": "Ped Zed",
         "nickname": "pedzed",

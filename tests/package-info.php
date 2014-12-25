@@ -31,6 +31,7 @@ $testPackageData = new PackageData('test.json');
             Documentation: <a href="<?php echo $pmPackageData->get('documentation'); ?>">
                                <?php echo $pmPackageData->get('documentation'); ?>
                            </a><br />
+            PHP version: <?php echo $pmPackageData->get('dependencies')->php; ?><br />
             Contributors:
             <?php
             $contributors = '';
