@@ -29,7 +29,8 @@ return [
     */
     'namespaces' => [
         'app\controllers' => 'app/controllers',
-        'John_Doe' => '/vendor/John_Doe/',
+        'John_Doe' => '/vendor/John_Doe',
+        'multi_extensions' => 'vendor/multi_extensions/',
     ],
     
     /*

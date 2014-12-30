@@ -1,6 +1,6 @@
 {
     "name": "Tres package manager",
-    "version": "0.3",
+    "version": "0.4",
     "website": "http://tresframework.com",
     "documentation": "",
     "description_short": "Manages packages for your application.",

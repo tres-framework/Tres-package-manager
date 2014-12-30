@@ -1,0 +1,13 @@
+<?php
+
+namespace multi_extensions {
+    
+    class Test2 {
+        
+        public function __toString(){
+            return __METHOD__;
+        }
+        
+    }
+    
+}
