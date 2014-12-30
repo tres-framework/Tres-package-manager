@@ -2,7 +2,7 @@
 
 use Tres\package_manager\Autoload;
 
-require_once('../src/Tres/package_manager/Autoload.php');
+require_once('../../src/Tres/package_manager/Autoload.php');
 
 $manifest = require('manifest.php');
 $autoload = new Autoload(__DIR__, $manifest);

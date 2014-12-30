@@ -29,8 +29,7 @@ return [
     */
     'namespaces' => [
         'app\controllers' => 'app/controllers',
-        'Tres' => '../src/Tres',
-        'John_Doe' => '/vendor/John_Doe',
+        'John_Doe' => '/vendor/John_Doe/',
     ],
     
     /*
@@ -54,8 +53,8 @@ return [
     | Files
     |--------------------------------------------------------------------------
     | 
-    | This is mainly used for loading functions, but also works for other 
-    | files like an init/bootstrap file.
+    | This is mainly used for loading functions, but it also works for other 
+    | files.
     | 
     */
     'files' => [
