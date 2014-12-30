@@ -1,15 +1,15 @@
 <?php
 
-use Tres\package_manager\Autoload;
-use Tres\package_manager\PackageData;
+use Tres\package_manager\Autoloader;
+use Tres\package_manager\Package;
 
-require_once('../../src/Tres/package_manager/Autoload.php');
+require_once('../../src/Tres/package_manager/Autoloader.php');
 
 $manifest = require('manifest.php');
-$autoload = new Autoload(__DIR__, $manifest);
+$autoload = new Autoloader(__DIR__, $manifest);
 
-$pmPackageData = new PackageData();
-$testPackageData = new PackageData('test.json');
+$pmPackage = new Package();
+$testPackage = new Package('test.json');
 
 ?>
 <!DOCTYPE html>
@@ -22,21 +22,21 @@ $testPackageData = new PackageData('test.json');
     <body>
         <h1>Package Info</h1>
         
-        <h2><?php echo $pmPackageData->get('name'); ?> v<?php echo $pmPackageData->get('version'); ?></h2>
+        <h2><?php echo $pmPackage->get('name'); ?> v<?php echo $pmPackage->get('version'); ?></h2>
         <p>
-            Description: <em><?php echo $pmPackageData->get('description_short'); ?></em><br />
-            Website: <a href="<?php echo $pmPackageData->get('website'); ?>">
-                        <?php echo $pmPackageData->get('website'); ?>
+            Description: <em><?php echo $pmPackage->get('description_short'); ?></em><br />
+            Website: <a href="<?php echo $pmPackage->get('website'); ?>">
+                        <?php echo $pmPackage->get('website'); ?>
                      </a><br />
-            Documentation: <a href="<?php echo $pmPackageData->get('documentation'); ?>">
-                               <?php echo $pmPackageData->get('documentation'); ?>
+            Documentation: <a href="<?php echo $pmPackage->get('documentation'); ?>">
+                               <?php echo $pmPackage->get('documentation'); ?>
                            </a><br />
-            PHP version: <?php echo $pmPackageData->get('dependencies')->php; ?><br />
+            PHP version: <?php echo $pmPackage->get('dependencies')->php; ?><br />
             Contributors:
             <?php
             $contributors = '';
             
-            foreach($pmPackageData->get('contributors') as $contributor){
+            foreach($pmPackage->get('contributors') as $contributor){
                 $contributors .= $contributor->name;
                 $contributors .= ' ('.$contributor->nickname.'), ';
             }
@@ -44,24 +44,24 @@ $testPackageData = new PackageData('test.json');
             echo rtrim($contributors, ', ');
             ?>
         </p>
-        <?php echo $pmPackageData->getDescriptionLong(PackageData::FORMAT_HTML); ?>
-        <pre><?php echo print_r($pmPackageData->getAll()); ?></pre>
+        <?php echo $pmPackage->getDescriptionLong(Package::FORMAT_HTML); ?>
+        <pre><?php echo print_r($pmPackage->getAll()); ?></pre>
         <hr />
         
-        <h2><?php echo $testPackageData->get('name'); ?> v<?php echo $testPackageData->get('version'); ?></h2>
+        <h2><?php echo $testPackage->get('name'); ?> v<?php echo $testPackage->get('version'); ?></h2>
         <p>
-            Description: <em><?php echo $testPackageData->get('description_short'); ?></em><br />
-            Website: <a href="<?php echo $testPackageData->get('website'); ?>">
-                        <?php echo $testPackageData->get('website'); ?>
+            Description: <em><?php echo $testPackage->get('description_short'); ?></em><br />
+            Website: <a href="<?php echo $testPackage->get('website'); ?>">
+                        <?php echo $testPackage->get('website'); ?>
                      </a><br />
-            Documentation: <a href="<?php echo $testPackageData->get('documentation'); ?>">
-                               <?php echo $testPackageData->get('documentation'); ?>
+            Documentation: <a href="<?php echo $testPackage->get('documentation'); ?>">
+                               <?php echo $testPackage->get('documentation'); ?>
                            </a><br />
             Contributors:
             <?php
             $contributors = '';
             
-            foreach($testPackageData->get('contributors') as $contributor){
+            foreach($testPackage->get('contributors') as $contributor){
                 $contributors .= $contributor->name;
                 $contributors .= ' ('.$contributor->nickname.'), ';
             }
@@ -69,7 +69,7 @@ $testPackageData = new PackageData('test.json');
             echo rtrim($contributors, ', ');
             ?>
         </p>
-        <?php echo $testPackageData->getDescriptionLong(); ?>
-        <pre><?php echo print_r($testPackageData->getAll()); ?></pre>
+        <?php echo $testPackage->getDescriptionLong(); ?>
+        <pre><?php echo print_r($testPackage->getAll()); ?></pre>
     </body>
 </html>

@@ -1,11 +1,11 @@
 <?php
 
-use Tres\package_manager\Autoload;
+use Tres\package_manager\Autoloader;
 
-require_once('../../src/Tres/package_manager/Autoload.php');
+require_once('../../src/Tres/package_manager/Autoloader.php');
 
 $manifest = require('manifest.php');
-$autoload = new Autoload(__DIR__, $manifest);
+$autoload = new Autoloader(__DIR__, $manifest);
 
 echo John_Doe\examples\ExampleClassOne::sayHello();
 echo alias\Name::sayHello();

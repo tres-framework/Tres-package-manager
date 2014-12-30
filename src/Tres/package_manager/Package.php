@@ -5,7 +5,7 @@ namespace Tres\package_manager {
     /**
      * Retrieves data about a package.
      */
-    class PackageData {
+    class Package {
         
         /**
          * The package data.
