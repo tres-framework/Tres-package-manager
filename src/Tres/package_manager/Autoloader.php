@@ -2,7 +2,7 @@
 
 namespace Tres\package_manager {
     
-    class Autoload {
+    class Autoloader {
         
         /**
          * The root URI of all files.
