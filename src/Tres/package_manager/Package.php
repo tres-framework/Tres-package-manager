@@ -2,9 +2,14 @@
 
 namespace Tres\package_manager {
     
-    /**
-     * Retrieves data about a package.
-     */
+    /*
+    |--------------------------------------------------------------------------
+    | Package data
+    |--------------------------------------------------------------------------
+    | 
+    | This class is used to retrieve data from a package.
+    | 
+    */
     class Package {
         
         /**
@@ -64,7 +69,7 @@ namespace Tres\package_manager {
         /**
          * Gets the long description.
          * 
-         * @param  int $format Determines how the output should be formatted.
+         * @param  int    $format Determines how the output should be formatted.
          * @return string
          */
         public function getDescriptionLong($format = self::FORMAT_HTML){
@@ -79,6 +84,14 @@ namespace Tres\package_manager {
             return $desc;
         }
         
+        /**
+         * Formats the package data output.
+         * 
+         * @param  string $str    The string to format.
+         * @param  int    $format The format.
+         * 
+         * @return string The formatted string.
+         */
         protected function _format($str, $format){
             switch($format){
                 case self::FORMAT_RAW:

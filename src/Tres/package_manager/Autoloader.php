@@ -2,6 +2,14 @@
 
 namespace Tres\package_manager {
     
+    /*
+    |--------------------------------------------------------------------------
+    | Autoloader
+    |--------------------------------------------------------------------------
+    | 
+    | This class is used to load files easily by using a manifest. 
+    | 
+    */
     class Autoloader {
         
         /**
@@ -12,7 +20,7 @@ namespace Tres\package_manager {
         protected $_rootURI = '';
         
         /**
-         * The manifest data.
+         * The manifest containing data.
          * 
          * @var array
          */
@@ -145,7 +153,8 @@ namespace Tres\package_manager {
          * 
          * @param  string $namespacePrefix A part or the complete namespace.
          * @param  string $className       The class name.
-         * @return bool                    Whether it succeeded or not.
+         * 
+         * @return bool   Whether it succeeded or not.
          */
         protected function _loadMappedFile($namespacePrefix, $className){
             if(!isset($this->_namespacePrefixes[$namespacePrefix])){
@@ -165,7 +174,7 @@ namespace Tres\package_manager {
         }
         
         /**
-         * Registers the namespaces.
+         * Registers namespaces.
          */
         protected function _registerNamespaces(){
             foreach($this->_manifest['namespaces'] as $namespace => $dir){
@@ -175,7 +184,7 @@ namespace Tres\package_manager {
         }
         
         /**
-         * Registers the aliases.
+         * Registers aliases.
          */
         protected function _registerAliases(){
             foreach($this->_manifest['aliases'] as $alias => $original){
@@ -184,7 +193,7 @@ namespace Tres\package_manager {
         }
         
         /**
-         * Registers the files.
+         * Registers files.
          */
         protected function _registerFiles(){
             foreach($this->_manifest['files'] as $file){
