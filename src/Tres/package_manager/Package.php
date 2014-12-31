@@ -2,6 +2,10 @@
 
 namespace Tres\package_manager {
     
+    use Exception;
+    
+    class PackageException extends Exception {}
+    
     /*
     |--------------------------------------------------------------------------
     | Package data
@@ -32,15 +36,15 @@ namespace Tres\package_manager {
         /**
          * Initializes the package data.
          * 
-         * @param string $package The URI to the JSON package file.
+         * @param string $packageData The URI to the JSON package file.
          */
-        public function __construct($package = null){
+        public function __construct($packageData = null){
             // If no package is provided, use Tres package manager's data.
-            if(!isset($package)){
-                $package = __DIR__.'/package.json';
+            if(!isset($packageData)){
+                throw new PackageException('No package data provided.');
             }
             
-            $data = file_get_contents($package);
+            $data = file_get_contents($packageData);
             $this->_data = json_decode($data);
         }
         

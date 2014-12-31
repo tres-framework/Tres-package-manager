@@ -8,7 +8,7 @@ require_once('../../src/Tres/package_manager/Autoloader.php');
 $manifest = require('manifest.php');
 $autoload = new Autoloader(__DIR__, $manifest);
 
-$pmPackage = new Package();
+$pmPackage = new Package('../../src/Tres/package_manager/package.json');
 $testPackage = new Package('test.json');
 
 ?>
