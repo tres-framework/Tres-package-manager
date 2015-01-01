@@ -28,9 +28,7 @@ return [
     | 
     */
     'namespaces' => [
-        'app\controllers' => 'app/controllers',
-        'Tres' => 'vendor/Tres',
-        'John_Doe' => '/vendor/John_Doe',
+        'Tres' => '../../src/Tres'
     ],
     
     /*
@@ -45,21 +43,17 @@ return [
     | The alias => the original class name
     | 
     */
-    'aliases' => [
-        'alias\Name' => 'John_Doe\examples\ExampleClassOne',
-    ],
+    'aliases' => [],
     
     /*
     |--------------------------------------------------------------------------
     | Files
     |--------------------------------------------------------------------------
     | 
-    | This is mainly used for loading functions, but also works for other 
-    | files like an init/bootstrap file.
+    | This is mainly used for loading functions, but it also works for other 
+    | files.
     | 
     */
-    'files' => [
-        'vendor/ircmaxell/lib/password.php',
-    ],
+    'files' => [],
     
 ];

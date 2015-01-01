@@ -2,7 +2,15 @@
 
 namespace Tres\package_manager {
     
-    class Autoload {
+    /*
+    |--------------------------------------------------------------------------
+    | Autoloader
+    |--------------------------------------------------------------------------
+    | 
+    | This class is used to load files easily by using a manifest. 
+    | 
+    */
+    class Autoloader {
         
         /**
          * The root URI of all files.
@@ -12,7 +20,7 @@ namespace Tres\package_manager {
         protected $_rootURI = '';
         
         /**
-         * The manifest data.
+         * The manifest containing data.
          * 
          * @var array
          */
@@ -26,12 +34,21 @@ namespace Tres\package_manager {
         protected $_namespacePrefixes = [];
         
         /**
+         * The list of extensions to look for.
+         * 
+         * @var array
+         */
+        protected $_extensions = [
+            '.php'
+        ];
+        
+        /**
          * Sets the root URI.
          * 
          * @param string $rootURI The root URI of all files.
          */
         public function __construct($rootURI, array $manifest){
-            $this->_rootURI = rtrim($rootURI, '/');
+            $this->_rootURI = str_replace('\\', '/', rtrim($rootURI, '/'));
             $this->_manifest = $manifest;
             
             spl_autoload_register([$this, '_loadClass']);
@@ -39,6 +56,26 @@ namespace Tres\package_manager {
             $this->_registerNamespaces();
             $this->_registerAliases();
             $this->_registerFiles();
+        }
+        
+        /**
+         * Adds a file extension to look for.
+         * 
+         * @param string $extension The file extension to look for.
+         */
+        public function addExtension($extension){
+            if(!in_array($extension, $this->_extensions)){
+                $this->_extensions[] = $extension;
+            }
+        }
+        
+        /**
+         * Adds file extensions to look for.
+         * 
+         * @param array $extension The file extensions to look for.
+         */
+        public function addExtensions(array $extensions){
+            $this->_extensions = array_merge($this->_extensions, $extensions);
         }
         
         /**
@@ -66,12 +103,15 @@ namespace Tres\package_manager {
         }
         
         /**
-         * Loads the given file.
+         * Loads the requested file.
          * 
-         * @param  string $file
+         * @param string $file
          */
         public function loadFile($file){
-            if(require_once($this->_rootURI.'/'.$file)){
+            $file = $this->_rootURI.'/'.$file;
+            
+            if(is_readable($file)){
+                require_once($file);
                 return true;
             }
             
@@ -113,7 +153,8 @@ namespace Tres\package_manager {
          * 
          * @param  string $namespacePrefix A part or the complete namespace.
          * @param  string $className       The class name.
-         * @return bool                    Whether it succeeded or not.
+         * 
+         * @return bool   Whether it succeeded or not.
          */
         protected function _loadMappedFile($namespacePrefix, $className){
             if(!isset($this->_namespacePrefixes[$namespacePrefix])){
@@ -121,22 +162,29 @@ namespace Tres\package_manager {
             }
             
             $file = $this->_namespacePrefixes[$namespacePrefix].'/'.$className;
-            $file = str_replace('\\', '/', $file).'.php';
+            $file = str_replace('\\', '/', $file);
             
-            return $this->loadFile($file);
+            foreach($this->_extensions as $ext){
+                if($this->loadFile($file.$ext)){
+                    return true;
+                }
+            }
+            
+            return false;
         }
         
         /**
-         * Registers the namespaces.
+         * Registers namespaces.
          */
         protected function _registerNamespaces(){
             foreach($this->_manifest['namespaces'] as $namespace => $dir){
+                $dir = trim($dir, '/');
                 $this->addNamespace($namespace, $dir);
             }
         }
         
         /**
-         * Registers the aliases.
+         * Registers aliases.
          */
         protected function _registerAliases(){
             foreach($this->_manifest['aliases'] as $alias => $original){
@@ -145,10 +193,11 @@ namespace Tres\package_manager {
         }
         
         /**
-         * Registers the files.
+         * Registers files.
          */
         protected function _registerFiles(){
             foreach($this->_manifest['files'] as $file){
+                $dir = ltrim($file, '/');
                 $this->loadFile($file);
             }
         }
