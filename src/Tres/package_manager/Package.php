@@ -49,6 +49,16 @@ namespace Tres\package_manager {
         }
         
         /**
+         * Tells whether a package exists or not.
+         * 
+         * @param  string $packageDir The path to the package directory.
+         * @return bool
+         */
+        public static function exists($packageDir){
+            return is_dir($packageDir);
+        }
+        
+        /**
          * Gets the requested data.
          * 
          * @return array
